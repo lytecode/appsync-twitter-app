@@ -1,0 +1,19 @@
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: appsync-twitter
+frameworkVersion: '4'
+
+plugins:
+  - serverless-appsync-plugin
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+
+package:
+  exclude:
+    - package-lock.json
+    - package.json
+
+custom:
+  appSync:
+    - ${file(./serverless.appsync-api.yml)}

@@ -1,0 +1,2 @@
+name: appsync-twitter-be
+schema: schema.api.graphql

@@ -1,0 +1,25 @@
+{
+  "name": "appsync-twitter-app",
+  "version": "1.0.0",
+  "description": "Backend demo app using appsync",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "sls": "serverless"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lytecode/appsync-twitter-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lytecode/appsync-twitter-app/issues"
+  },
+  "homepage": "https://github.com/lytecode/appsync-twitter-app#readme",
+  "devDependencies": {
+    "serverless": "^4.14.1",
+    "serverless-appsync-plugin": "^1.14.0"
+  }
+}
