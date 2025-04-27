@@ -8,6 +8,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs20.x
+  region: ca-central-1
 
 package:
   exclude:
@@ -17,3 +18,29 @@ package:
 custom:
   appSync:
     - ${file(./serverless.appsync-api.yml)}
+
+resources:
+  Resources:
+    # Cognito User Pool
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        AutoVerifiedAttributes:
+          - email
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+            RequireUppercase: false
+            RequireLowercase: false
+            RequireNumbers: false
+            RequireSymbols: false
+        UsernameAttributes:
+          - email
+        Schema:
+          - AttributeDataType: String
+            Name: email
+            Required: false
+            Mutable: true
+  Outputs:
+    CognitoUserPoolId:
+      Value: !Ref CognitoUserPool
