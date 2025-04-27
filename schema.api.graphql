@@ -130,7 +130,7 @@ type Tweet implements ITweet {
 type Reply implements ITweet {
     id: ID!
     profile: IProfile!
-    createdAT: AWSDateTime!
+    createdAt: AWSDateTime!
     text: String!
     replies: Int!
     likes: Int!

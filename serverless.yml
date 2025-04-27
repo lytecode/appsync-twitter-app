@@ -8,7 +8,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs20.x
-  region: ca-central-1
+  region: us-east-1
 
 package:
   exclude:
@@ -16,12 +16,17 @@ package:
     - package.json
 
 custom:
-  appSync:
-    - ${file(./serverless.appsync-api.yml)}
+  appSync: #${file(./serverless.appsync-api.yml)}
+    name: appsync-twitter-be
+    schema: schema.api.graphql
+    authenticationType: AMAZON_COGNITO_USER_POOLS
+    userPoolConfig:
+      awsRegion: us-east-1
+      defaultAction: ALLOW
+      userPoolId: !Ref CognitoUserPool
 
 resources:
   Resources:
-    # Cognito User Pool
     CognitoUserPool:
       Type: AWS::Cognito::UserPool
       Properties:
@@ -41,6 +46,17 @@ resources:
             Name: email
             Required: false
             Mutable: true
+
+    WebUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        UserPoolId: !Ref CognitoUserPool
+        ClientName: web
+        ExplicitAuthFlows:
+          - ALLOW_USER_SRP_AUTH
+          - ALLOW_USER_PASSWORD_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+        PreventUserExistenceErrors: ENABLED
   Outputs:
     CognitoUserPoolId:
       Value: !Ref CognitoUserPool
